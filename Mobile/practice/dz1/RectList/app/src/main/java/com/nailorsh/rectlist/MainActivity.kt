@@ -3,6 +3,7 @@ package com.nailorsh.rectlist
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.annotation.StringRes
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -45,7 +46,6 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             RectListTheme {
-                // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
@@ -61,27 +61,29 @@ class MainActivity : ComponentActivity() {
 fun RectListApp() {
     var num by remember { mutableStateOf(1) }
     Column(
-
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Bottom,
         modifier = Modifier.fillMaxSize()
     ) {
-        RectList(num)
-        Spacer(modifier = Modifier.weight(1f))
-        MyButton(onButtonClicked = { num++ })
+        RectList(modifier = Modifier.weight(11f), num = num)
+        Spacer(modifier = Modifier.height(5.dp))
+        MyButton(
+            modifier = Modifier.weight(1f),
+            onButtonClicked = { num++ },
+            text = R.string.add_button
+        )
         Spacer(modifier = Modifier.height(10.dp))
     }
 }
 
 @Composable
-fun RectList(num: Int) {
+fun RectList(modifier: Modifier = Modifier, num: Int) {
     LazyVerticalGrid(
         columns = GridCells.Adaptive(minSize = 128.dp),
+        modifier = modifier
     )
     { items((1..num).toList()) { Square(index = it) } }
 }
-
-
 
 @Composable
 fun Square(index: Int) {
@@ -97,36 +99,40 @@ fun Square(index: Int) {
 }
 
 @Composable
-fun MyButton(onButtonClicked: () -> Unit = {}) {
+fun MyButton(
+    modifier: Modifier = Modifier,
+    @StringRes text: Int,
+    onButtonClicked: () -> Unit = {}
+) {
     Row(
         horizontalArrangement = Arrangement.spacedBy(10.dp, Alignment.CenterHorizontally),
         verticalAlignment = Alignment.CenterVertically,
-        modifier = Modifier
+        modifier = modifier
             .width(342.dp)
-            .height(52.dp)
             .background(color = Color.Black, shape = RoundedCornerShape(size = 8.dp))
             .padding(start = 10.dp, top = 10.dp, end = 10.dp, bottom = 10.dp)
             .clickable { onButtonClicked() }
-
     ) {
         Text(
-            text = stringResource(R.string.add_button),
+            text = stringResource(text),
             style = TextStyle(
                 fontSize = 16.sp,
                 lineHeight = 32.sp,
                 fontFamily = FontFamily(Font(R.font.inter)),
                 fontWeight = FontWeight.SemiBold,
                 color = Color.White
-            ),
+            )
         )
     }
 }
+
+
 @Preview(
     showBackground = true,
     showSystemUi = true
 )
 @Composable
-fun GreetingPreview() {
+fun RectPreview() {
     RectListTheme {
         Row {
             Square(1)
