@@ -45,6 +45,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.nailorsh.rectlist.ui.theme.RectListTheme
 
+const val PORTRAIT_COLUMNS_NUMBER = 3
+const val LANDSCAPE_COLUMNS_NUMBER = 4
+
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -64,38 +67,21 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun RectListApp() {
     var num by rememberSaveable { mutableStateOf(1) }
-    val weightOfList: Float
-    val weightOfButton: Float
     val columnNumber: Int
 
     val configuration = LocalConfiguration.current
-    when (configuration.orientation) {
-        Configuration.ORIENTATION_LANDSCAPE -> {
-            weightOfList = 4f
-            weightOfButton = 1f
-            columnNumber = 4
-        }
-
-        Configuration.ORIENTATION_PORTRAIT -> {
-            weightOfList = 11f
-            weightOfButton = 1f
-            columnNumber = 3
-        }
-
-        else -> {
-            TODO()
-        }
-    }
+    columnNumber =
+        if (configuration.orientation == Configuration.ORIENTATION_LANDSCAPE)
+            LANDSCAPE_COLUMNS_NUMBER else PORTRAIT_COLUMNS_NUMBER
 
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Bottom,
         modifier = Modifier.fillMaxSize()
     ) {
-        RectList(modifier = Modifier.weight(weightOfList), num = num, columnNumber = columnNumber)
+        RectList(modifier = Modifier.weight(1f), num = num, columnNumber = columnNumber)
         Spacer(modifier = Modifier.height(5.dp))
         MyButton(
-            modifier = Modifier.weight(weightOfButton),
             onButtonClicked = { num++ },
             text = R.string.add_button
         )
@@ -121,8 +107,8 @@ fun RectList(modifier: Modifier = Modifier, num: Int = 3, columnNumber: Int = 3)
 //            )
             Square(
                 modifier = Modifier
-                    .padding(2.dp)
-                    .animateItemPlacement(),
+                    .padding(2.dp),
+//                    .animateItemPlacement(),
                 index = it + 1
             )
         }
