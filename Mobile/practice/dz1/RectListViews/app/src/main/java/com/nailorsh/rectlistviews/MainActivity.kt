@@ -1,10 +1,9 @@
 package com.nailorsh.rectlistviews
 
-import android.annotation.SuppressLint
 import android.content.res.Configuration
 import android.graphics.Color
-import android.graphics.Rect
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
@@ -13,11 +12,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
+const val PORTRAIT_COLUMNS_NUMBER = 3
+const val LANDSCAPE_COLUMNS_NUMBER = 4
+
 class MainActivity : AppCompatActivity() {
-    private lateinit var recyclerView: RecyclerView
-    private lateinit var addButton: Button
-    private lateinit var adapter: RectListAdapter
-    private var num = 1
+    var num = 1
 
     companion object {
         private const val NUM_KEY = "num_key"
@@ -27,26 +26,21 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        recyclerView = findViewById(R.id.rectListRecyclerView)
-        addButton = findViewById(R.id.addButton)
+        val recyclerView: RecyclerView = findViewById(R.id.rectList)
+        val addButton: Button = findViewById(R.id.addButton)
+        val adapter = RectListAdapter()
+        recyclerView.adapter = adapter
 
         if (savedInstanceState != null) {
             num = savedInstanceState.getInt(NUM_KEY, 1)
         }
 
-
-
-        adapter = RectListAdapter()
-
         val orientation = resources.configuration.orientation
         recyclerView.layoutManager = GridLayoutManager(
             this,
-            if (orientation == Configuration.ORIENTATION_LANDSCAPE) 4 else 3
+            if (orientation == Configuration.ORIENTATION_LANDSCAPE)
+                LANDSCAPE_COLUMNS_NUMBER else PORTRAIT_COLUMNS_NUMBER
         )
-
-        recyclerView.addItemDecoration(EqualSpacingItemDecoration(2))
-
-        recyclerView.adapter = adapter
 
         addButton.setOnClickListener {
             num++
@@ -59,19 +53,21 @@ class MainActivity : AppCompatActivity() {
         outState.putInt(NUM_KEY, num)
     }
 
-    private inner class RectListAdapter : RecyclerView.Adapter<RectListAdapter.ViewHolder>() {
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-            val view = layoutInflater.inflate(R.layout.item_rectangle, parent, false)
-            return ViewHolder(view)
+    private inner class RectListAdapter :
+        RecyclerView.Adapter<RectListAdapter.RectListViewHolder>() {
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RectListViewHolder {
+            val view = LayoutInflater
+                .from(parent.context)
+                .inflate(R.layout.item_rectangle, parent, false)
+            return RectListViewHolder(view)
         }
 
-        @SuppressLint("SetTextI18n")
-        override fun onBindViewHolder(holder: ViewHolder, index: Int) {
-            holder.textView.text = (index + 1).toString()
-            if ((index + 1) % 2 == 0) {
-                holder.itemView.setBackgroundColor(Color.BLUE)
-            } else {
+        override fun onBindViewHolder(holder: RectListViewHolder, position: Int) {
+            holder.textView.text = (position + 1).toString()
+            if ((position + 1) % 2 == 0) {
                 holder.itemView.setBackgroundColor(Color.RED)
+            } else {
+                holder.itemView.setBackgroundColor(Color.BLUE)
             }
         }
 
@@ -79,18 +75,8 @@ class MainActivity : AppCompatActivity() {
             return num
         }
 
-        inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        inner class RectListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
             val textView: TextView = itemView.findViewById(R.id.rectangleTextView)
         }
     }
 }
-
-class EqualSpacingItemDecoration(private val spacing: Int) : RecyclerView.ItemDecoration() {
-    override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {
-        outRect.left = spacing
-        outRect.right = spacing
-        outRect.top = spacing
-        outRect.bottom = spacing
-    }
-}
-
