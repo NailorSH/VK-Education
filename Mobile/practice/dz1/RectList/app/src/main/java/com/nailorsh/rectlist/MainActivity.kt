@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.annotation.StringRes
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -20,7 +21,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -103,6 +103,7 @@ fun RectListApp() {
     }
 }
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun RectList(modifier: Modifier = Modifier, num: Int = 3, columnNumber: Int = 3) {
     LazyVerticalGrid(
@@ -110,9 +111,20 @@ fun RectList(modifier: Modifier = Modifier, num: Int = 3, columnNumber: Int = 3)
         contentPadding = PaddingValues(2.dp),
         modifier = modifier
     ) {
-        items((1..num).toList()) {
-//            Rectangle(modifier = Modifier.padding(2.dp).aspectRatio(2f), index = it)
-            Square(modifier = Modifier.padding(2.dp), index = it)
+        items(num) {
+//            Rectangle(
+//                modifier = Modifier
+//                    .padding(2.dp)
+//                    .aspectRatio(2f)
+//                    .animateItemPlacement(),
+//                index = it
+//            )
+            Square(
+                modifier = Modifier
+                    .padding(2.dp)
+                    .animateItemPlacement(),
+                index = it + 1
+            )
         }
     }
 }
