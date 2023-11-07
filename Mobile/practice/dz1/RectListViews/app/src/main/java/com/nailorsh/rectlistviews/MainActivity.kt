@@ -1,5 +1,6 @@
 package com.nailorsh.rectlistviews
 
+import android.content.Intent
 import android.content.res.Configuration
 import android.graphics.Color
 import android.os.Bundle
@@ -16,7 +17,7 @@ const val PORTRAIT_COLUMNS_NUMBER = 3
 const val LANDSCAPE_COLUMNS_NUMBER = 4
 
 class MainActivity : AppCompatActivity() {
-    var num = 1
+    var num = 0
 
     companion object {
         private const val NUM_KEY = "num_key"
@@ -28,11 +29,18 @@ class MainActivity : AppCompatActivity() {
 
         val recyclerView: RecyclerView = findViewById(R.id.rectList)
         val addButton: Button = findViewById(R.id.addButton)
-        val adapter = RectListAdapter()
+
+        val adapter = RectListAdapter(onItemClicked = {
+            val data = Bundle()
+            data.putInt(SecondActivity.SECOND_KEY, it)
+            val intent = Intent(this, SecondActivity::class.java)
+            intent.putExtras(data)
+            this.startActivity(intent)
+        })
         recyclerView.adapter = adapter
 
         if (savedInstanceState != null) {
-            num = savedInstanceState.getInt(NUM_KEY, 1)
+            num = savedInstanceState.getInt(NUM_KEY, 0)
         }
 
         val orientation = resources.configuration.orientation
@@ -53,12 +61,15 @@ class MainActivity : AppCompatActivity() {
         outState.putInt(NUM_KEY, num)
     }
 
-    private inner class RectListAdapter :
+    private inner class RectListAdapter(
+        val onItemClicked: (Int) -> Unit
+    ) :
         RecyclerView.Adapter<RectListAdapter.RectListViewHolder>() {
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RectListViewHolder {
             val view = LayoutInflater
                 .from(parent.context)
-                .inflate(R.layout.item_rectangle, parent, false)
+                .inflate(R.layout.item_square, parent, false)
+
             return RectListViewHolder(view)
         }
 
@@ -69,6 +80,8 @@ class MainActivity : AppCompatActivity() {
             } else {
                 holder.itemView.setBackgroundColor(Color.BLUE)
             }
+
+            holder.itemView.setOnClickListener { onItemClicked(position+1) }
         }
 
         override fun getItemCount(): Int {
@@ -76,7 +89,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         inner class RectListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-            val textView: TextView = itemView.findViewById(R.id.rectangleTextView)
+            val textView: TextView = itemView.findViewById(R.id.squareTextView)
         }
     }
 }
