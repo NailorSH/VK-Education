@@ -1,16 +1,16 @@
 # Вёрстка
-* [base.html](docs/CONTRIBUTING.md)![[base_html.png]]
+* [base.html](./public/base.html)![./readme_img/base_html.png]
 
-* [index.html](docs/CONTRIBUTING.md) ![[index_html.png]]
+* [index.html](./public/index.html)![[index_html.png]]
 
-*  [tag_listing.html](docs/CONTRIBUTING.md)![[tag-listing_html.png]]
+*  [tag_listing.html](./public/index.html)![[tag-listing_html.png]]
 
-* [ask.html](docs/CONTRIBUTING.md)![[ask_html.png]]
+* [ask.html](./public/ask.html)![[ask_html.png]]
 
-* [question.html](docs/CONTRIBUTING.md)![[question_html.png]]
+* [question.html](./public/question.html)![[question_html.png]]
 
-* [settings.html](docs/CONTRIBUTING.md)![[settings_html.png]]
+* [settings.html](./public/settings.html)![[settings_html.png]]
 
-* [login.html](docs/CONTRIBUTING.md)![[login_html.png]]
+* [login.html](./public/login.html)![[login_html.png]]
 
-* [signup.html](docs/CONTRIBUTING.md)![[signup_html.png]]
+* [signup.html](./public/signup.html)![[signup_html.png]]
