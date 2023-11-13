@@ -88,7 +88,7 @@ main > .container {
     margin-bottom: 35px;
 }
 
-.error_1 {
+.form-error {
     color: darkred;
 }
 
@@ -199,6 +199,12 @@ main > .container {
 
 .correct-checkbox {
     margin-right: 5px;
+}
+
+/*Login/Logout*/
+.log-field {
+    border: 2px solid black;
+    width: 300px;
 }
 
 

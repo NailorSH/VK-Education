@@ -117,145 +117,71 @@
     <div class="container">
         <div class="row page-content">
             <div class="col-8">
-                <div class="row question">
-                    <div class="col-3">
-                        <img src="../static/img/rabbit.jpg" alt="" class="question-image">
+                <h2 class="block-title">Registration</h2>
 
-                        <div class="like-dislike-container">
-                            <span>
-                                <button class="like" onclick="">
-                                    <i class="fas fa-thumbs-up"></i>
-                                </button>
+                <form action="/signup" method="post" enctype="multipart/form-data">
+                    <input type="hidden" name="" value="">
 
-                                <span class="like-count">0</span>
-
-                                <button class="dislike" onclick="dislikeQuestion()">
-                                    <i class="fas fa-thumbs-down"></i>
-                                </button>
-                            </span>
-                        </div>
-                    </div>
-                    <div class="col-9">
-                        <div class="question-title"><a href="">First question</a></div>
-                        <div class="question-text">
-                            Lorem Ipsum is simply dummy text of the printing and typesetting
-                            industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
-                            when an unknown printer took a galley of type and scrambled it to make a type specimen
-                            book.
-                            It has survived not only five centuries, but also the leap into electronic typesetting,
-                            remaining essentially unchanged.
-                        </div>
-                        <div class="question-details">
-                            <a href="">answers (3)</a>
-                            <span class="tags">Tags:</span>
-                            <a class="tag" href="">black-jack</a>
-                            <a class="tag" href="">bender</a>
-                        </div>
-                    </div>
-                </div>
-
-                <hr style="height:2px; border-width:0; color: black; background-color: black;">
-
-                <div class="row answer">
-                    <div class="col-3">
-                        <img src="../static/img/rabbit.jpg" alt="" class="answer-image">
-                        <div class="like-dislike-container">
-                                <span>
-                                    <button class="like" onclick="">
-                                        <i class="fas fa-thumbs-up"></i>
-                                    </button>
-
-                                    <span class="like-count">0</span>
-
-                                    <button class="dislike" onclick="">
-                                        <i class="fas fa-thumbs-down"></i>
-                                    </button>
-                                </span>
-                        </div>
-                    </div>
-                    <div class="col-9">
-                        <div class="answer-text">
-                            First of all I would like to thank you for the invitation to participate in such a
-                            Russia is the huge territory which in many respects needs to be render habitable.
-                        </div>
-                        <div class="checkbox-container">
-                            <label class="checkbox-label">
-                                <input type="checkbox" class="correct-checkbox">
-                                <i>Correct</i>
-                            </label>
-                        </div>
-                    </div>
-                </div>
-                <div class="row answer">
-                    <div class="col-3">
-                        <img src="../static/img/rabbit.jpg" alt="" class="answer-image">
-                        <div class="like-dislike-container">
-                                <span>
-                                    <button class="like" onclick="">
-                                        <i class="fas fa-thumbs-up"></i>
-                                    </button>
-
-                                    <span class="like-count">0</span>
-
-                                    <button class="dislike" onclick="">
-                                        <i class="fas fa-thumbs-down"></i>
-                                    </button>
-                                </span>
-                        </div>
-                    </div>
-                    <div class="col-9">
-                        <div class="answer-text">
-                            First of all I would like to thank you for the invitation to participate in such a
-                            Russia is the huge territory which in many respects needs to be render habitable.
-                        </div>
-                        <div class="checkbox-container">
-                            <label class="checkbox-label">
-                                <input type="checkbox" class="correct-checkbox">
-                                <i>Correct</i>
-                            </label>
-                        </div>
-                    </div>
-                </div>
-                <div class="row answer">
-                    <div class="col-3">
-                        <img src="../static/img/rabbit.jpg" alt="" class="answer-image">
-                        <div class="like-dislike-container">
-                                <span>
-                                    <button class="like" onclick="">
-                                        <i class="fas fa-thumbs-up"></i>
-                                    </button>
-
-                                    <span class="like-count">0</span>
-
-                                    <button class="dislike" onclick="">
-                                        <i class="fas fa-thumbs-down"></i>
-                                    </button>
-                                </span>
-                        </div>
-                    </div>
-                    <div class="col-9">
-                        <div class="answer-text">
-                            First of all I would like to thank you for the invitation to participate in such a
-                            Russia is the huge territory which in many respects needs to be render habitable.
-                        </div>
-                        <div class="checkbox-container">
-                            <label class="checkbox-label">
-                                <input type="checkbox" class="correct-checkbox">
-                                <i>Correct</i>
-                            </label>
-                        </div>
-                    </div>
-                </div>
-
-                <hr style="height:2px; border-width:0; color: black; background-color: black;">
-
-                <form>
                     <div class="form-error"></div>
-                    <label for="id_answer"><h5>Your answer</h5></label>
-                    <textarea name="answer" cols="40" rows="10" class="answer-field" placeholder="Enter your answer here" required=""
-                              id="id_answer"></textarea>
 
-                    <input class="btn btn-dark" style="margin-bottom: 30px" type="submit" value="Answer!">
+                    <div class="row ask_question">
+                        <div class="col-3" style="margin-right: 10px">
+                            Login
+                        </div>
+                        <input type="text" name="username" class="col-9 log-field" required="" id="id_username">
+                    </div>
+
+
+                    <div class="form-error">  </div>
+
+                    <div class="row ask_question">
+                        <div class="col-3" style="margin-right: 10px">
+                            NickName
+                        </div>
+                        <input type="text" name="first_name" class="col-9 log-field" required="" id="id_first_name">
+                    </div>
+
+
+                    <div class="form-error">  </div>
+
+                    <div class="row ask_question">
+                        <div class="col-3" style="margin-right: 10px">
+                            Email
+                        </div>
+                        <input type="email" name="email" class="col-9 log-field" maxlength="320" required="" id="id_email">
+                    </div>
+
+
+                    <div class="form-error">  </div>
+
+                    <div class="row ask_question">
+                        <div class="col-3" style="margin-right: 10px">
+                            Password
+                        </div>
+                        <input type="password" name="password" class="col-9 log-field" required="" id="id_password">
+                    </div>
+
+
+                    <div class="form-error">  </div>
+
+                    <div class="row ask_question">
+                        <div class="col-3" style="margin-right: 10px">
+                            Repeat password
+                        </div>
+                        <input type="password" name="password2" class="col-9 log-field" required="" id="id_password2">
+                    </div>
+
+
+                    <div class="form-error">  </div>
+
+                    <div class="row ask_question">
+                        <div class="col-3" style="margin-right: 10px">
+                            Upload avatar
+                        </div>
+                        <input type="file" name="image" class="col-8" accept="image/*" id="id_image">
+                    </div>
+
+                    <input style="margin-left: 230px; width: 90px" type="submit" value="Register">
                 </form>
             </div>
             <div class="col-4">
