@@ -1,5 +1,5 @@
 # Вёрстка
-* [base.html](./public/base.html)![./readme_img/base_html.png]
+* [base.html](./public/base.html) ![](./public/base_html.png)
 
 * [index.html](./public/index.html)![[index_html.png]]
 
