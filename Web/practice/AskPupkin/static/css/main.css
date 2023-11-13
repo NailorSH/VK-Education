@@ -159,12 +159,15 @@ main > .container {
 .like-dislike-container {
     position: relative;
     display: flex;
-    width: 75%;
+    width: 100%;
     flex-direction: column;
     align-items: center;
     margin-top: 10px;
 }
 
+.answer-like-dislike {
+    width: 75%;
+}
 .like, .dislike {
     background-color: var(--button);
     border: none;

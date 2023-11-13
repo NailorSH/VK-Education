@@ -1,0 +1,31 @@
+{% load static %}
+<div class="row questions-item">
+    <div class="col-3">
+        <img src="{% static '/img/rabbit.jpg' %}" alt="" class="question-image">
+
+        <div class="like-dislike-container">
+            <span>
+                <button class="like" onclick="">
+                    <i class="fas fa-thumbs-up"></i>
+                </button>
+
+                <span class="like-count">0</span>
+
+                <button class="dislike" onclick="">
+                    <i class="fas fa-thumbs-down"></i>
+                </button>
+            </span>
+        </div>
+    </div>
+    <div class="col-9">
+        <div class="question-title"><a href="">{{ question.title }}</a></div>
+        <div class="question-text">{{ question.content }}</div>
+        <div class="question-details">
+            <a href="">answers (3)</a>
+            <span class="tags">Tags:</span>
+            <a class="tag" href="">black-jack</a>
+            <a class="tag" href="">bender</a>
+
+        </div>
+    </div>
+</div>

@@ -1,0 +1,27 @@
+{% load static %}
+<div class="row answer">
+    <div class="col-3">
+        <img src="{% static '/img/rabbit.jpg' %}" alt="" class="answer-image">
+        <div class="like-dislike-container answer-like-dislike">
+                <span>
+                    <button class="like" onclick="">
+                        <i class="fas fa-thumbs-up"></i>
+                    </button>
+                    <span class="like-count">0</span>
+
+                    <button class="dislike" onclick="">
+                        <i class="fas fa-thumbs-down"></i>
+                    </button>
+                </span>
+        </div>
+    </div>
+    <div class="col-9">
+        <div class="answer-text">{{ answer.content }}</div>
+        <div class="checkbox-container">
+            <label class="checkbox-label">
+                <input type="checkbox" class="correct-checkbox">
+                <i>Correct</i>
+            </label>
+        </div>
+    </div>
+</div>
