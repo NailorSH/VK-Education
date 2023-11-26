@@ -16,6 +16,7 @@ import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -49,11 +50,18 @@ fun HomeScreen(
 
 @Composable
 fun LoadingScreen(modifier: Modifier = Modifier) {
-    Image(
-        modifier = modifier.size(200.dp),
-        painter = painterResource(R.drawable.loading_img),
-        contentDescription = stringResource(R.string.loading)
-    )
+    Box(
+        modifier = modifier,
+        contentAlignment = Alignment.Center
+    ) {
+        CircularProgressIndicator(modifier = Modifier.size(100.dp))
+    }
+
+//    Image(
+//        modifier = modifier.size(200.dp),
+//        painter = painterResource(R.drawable.loading_img),
+//        contentDescription = stringResource(R.string.loading)
+//    )
 }
 
 @Composable
@@ -140,6 +148,13 @@ fun ResultScreenPreview() {
 fun ErrorScreenPreview() {
     PicsNetTheme {
         ErrorScreen({})
+    }
+}
+@Preview(showBackground = true)
+@Composable
+fun LoadingScreenPreview() {
+    PicsNetTheme {
+        LoadingScreen()
     }
 }
 

@@ -30,6 +30,7 @@ class PicsViewModel(private val picsRepository: PicsRepository) : ViewModel() {
     }
     fun getPhotos() {
         viewModelScope.launch {
+            picsUiState = PicsUiState.Loading
             picsUiState = try {
                 PicsUiState.Success(picsRepository.getPhotos())
             } catch (e: IOException) {
