@@ -1,18 +1,18 @@
 package com.nailorsh.picsnet.ui.screens
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.foundation.lazy.staggeredgrid.LazyVerticalStaggeredGrid
+import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
+import androidx.compose.foundation.lazy.staggeredgrid.items
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -95,23 +95,39 @@ fun ResultScreen(photos: String, modifier: Modifier = Modifier) {
     }
 }
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun PhotosGridScreen(photos: List<PicsPhoto>, modifier: Modifier = Modifier) {
-    LazyVerticalGrid(
-        columns = GridCells.Adaptive(150.dp),
-        modifier = modifier.fillMaxWidth(),
-        contentPadding = PaddingValues(4.dp)
-    ) {
-        items(items = photos, key = { photo -> photo.id }) { photo ->
-            PicsPhotoCard(
-                photo,
-                modifier = modifier
-                    .padding(4.dp)
-                    .fillMaxWidth()
-                    .aspectRatio(1.5f)
-            )
+
+//    Реализация с карточками, сохраняющими пропорции
+    LazyVerticalStaggeredGrid(
+        modifier = modifier,
+        columns = StaggeredGridCells.Adaptive(150.dp),
+        contentPadding = PaddingValues(4.dp),
+        verticalItemSpacing = 4.dp,
+        horizontalArrangement = Arrangement.spacedBy(4.dp),
+        content = {
+            items(photos) { PicsPhotoCard(it) }
         }
-    }
+    )
+
+//    Реализация с карточками фиксированного размера
+//
+//    LazyVerticalGrid(
+//        columns = GridCells.Adaptive(150.dp),
+//        modifier = modifier.fillMaxWidth(),
+//        contentPadding = PaddingValues(4.dp)
+//    ) {
+//        items(items = photos, key = { photo -> photo.id }) { photo ->
+//            PicsPhotoCard(
+//                photo,
+//                modifier = modifier
+//                    .padding(4.dp)
+//                    .fillMaxWidth()
+//                    .aspectRatio(1.5f)
+//            )
+//        }
+//    }
 }
 
 @Composable

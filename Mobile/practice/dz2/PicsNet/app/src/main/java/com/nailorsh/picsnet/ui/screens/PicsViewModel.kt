@@ -13,6 +13,7 @@ import com.nailorsh.picsnet.PicsNetApplication
 import com.nailorsh.picsnet.data.PicsRepository
 import com.nailorsh.picsnet.network.PicsPhoto
 import kotlinx.coroutines.launch
+import retrofit2.HttpException
 import java.io.IOException
 
 sealed interface PicsUiState {
@@ -34,6 +35,8 @@ class PicsViewModel(private val picsRepository: PicsRepository) : ViewModel() {
             picsUiState = try {
                 PicsUiState.Success(picsRepository.getPhotos())
             } catch (e: IOException) {
+                PicsUiState.Error
+            } catch (e: HttpException) {
                 PicsUiState.Error
             }
         }
