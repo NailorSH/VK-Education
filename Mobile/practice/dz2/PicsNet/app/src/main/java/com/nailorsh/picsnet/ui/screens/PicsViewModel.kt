@@ -42,6 +42,10 @@ class PicsViewModel(private val picsRepository: PicsRepository) : ViewModel() {
         }
     }
 
+    fun getPhotoById(photoId: String): PicsPhoto? {
+        return (picsUiState as? PicsUiState.Success)?.photos?.find { it.id == photoId }
+    }
+
     companion object {
         val Factory: ViewModelProvider.Factory = viewModelFactory {
             initializer {

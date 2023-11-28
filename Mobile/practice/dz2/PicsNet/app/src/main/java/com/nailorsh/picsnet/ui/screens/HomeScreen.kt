@@ -2,6 +2,7 @@ package com.nailorsh.picsnet.ui.screens
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -37,12 +38,17 @@ import com.nailorsh.picsnet.ui.theme.PicsNetTheme
 fun HomeScreen(
     picsUiState: PicsUiState,
     retryAction: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onCardClicked: (String) -> Unit = {}
 ) {
     when (picsUiState) {
         is PicsUiState.Loading -> LoadingScreen(modifier = modifier.fillMaxSize())
 
-        is PicsUiState.Success -> PhotosGridScreen(picsUiState.photos, modifier = modifier)
+        is PicsUiState.Success -> PhotosGridScreen(
+            picsUiState.photos,
+            modifier = modifier,
+            onCardClicked = onCardClicked
+        )
 
         is PicsUiState.Error -> ErrorScreen(retryAction, modifier = modifier.fillMaxSize())
     }
@@ -97,7 +103,11 @@ fun ResultScreen(photos: String, modifier: Modifier = Modifier) {
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun PhotosGridScreen(photos: List<PicsPhoto>, modifier: Modifier = Modifier) {
+fun PhotosGridScreen(
+    photos: List<PicsPhoto>,
+    modifier: Modifier = Modifier,
+    onCardClicked: (String) -> Unit = {}
+) {
 
 //    Реализация с карточками, сохраняющими пропорции
     LazyVerticalStaggeredGrid(
@@ -107,7 +117,10 @@ fun PhotosGridScreen(photos: List<PicsPhoto>, modifier: Modifier = Modifier) {
         verticalItemSpacing = 4.dp,
         horizontalArrangement = Arrangement.spacedBy(4.dp),
         content = {
-            items(photos) { PicsPhotoCard(it) }
+            items(photos) { PicsPhotoCard(
+                photo = it,
+                onCardClicked = onCardClicked
+            ) }
         }
     )
 
@@ -131,7 +144,7 @@ fun PhotosGridScreen(photos: List<PicsPhoto>, modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun PicsPhotoCard(photo: PicsPhoto, modifier: Modifier = Modifier) {
+fun PicsPhotoCard(photo: PicsPhoto, modifier: Modifier = Modifier, onCardClicked: (String) -> Unit = {}) {
     Card(
         modifier = modifier,
         elevation = CardDefaults.cardElevation(defaultElevation = 8.dp)
@@ -145,7 +158,9 @@ fun PicsPhotoCard(photo: PicsPhoto, modifier: Modifier = Modifier) {
             placeholder = painterResource(R.drawable.loading_img),
             contentDescription = stringResource(R.string.pics_photo),
             contentScale = ContentScale.Crop,
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier
+                .fillMaxWidth()
+                .clickable { onCardClicked(photo.id) }
         )
     }
 }
@@ -166,6 +181,7 @@ fun ErrorScreenPreview() {
         ErrorScreen({})
     }
 }
+
 @Preview(showBackground = true)
 @Composable
 fun LoadingScreenPreview() {
