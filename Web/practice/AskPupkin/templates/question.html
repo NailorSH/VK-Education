@@ -3,11 +3,11 @@
 
 {% block content %}
 
-    <div class="row question">
-        <div class="col-3">
-            <img src="{% static '/img/rabbit.jpg' %}" alt="" class="question-image">
+<div class="row question">
+    <div class="col-3">
+        <img src="{% static '/img/rabbit.jpg' %}" alt="" class="question-image">
 
-            <div class="like-dislike-container">
+        <div class="like-dislike-container">
                 <span>
                     <button class="like" onclick="">
                         <i class="fas fa-thumbs-up"></i>
@@ -19,40 +19,41 @@
                         <i class="fas fa-thumbs-down"></i>
                     </button>
                 </span>
-            </div>
-        </div>
-        <div class="col-9">
-            <div class="question-title"><a href="">First question</a></div>
-            <div class="question-text">
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
-                when an unknown printer took a galley of type and scrambled it to make a type specimen
-                book.
-            </div>
-            <div class="question-details">
-                <a href="">answers (3)</a>
-                <span class="tags">Tags:</span>
-                <a class="tag" href="">black-jack</a>
-                <a class="tag" href="">bender</a>
-            </div>
         </div>
     </div>
+    <div class="col-9">
+        <div class="question-title"><a href="">{{ question.title }}</a></div>
+        <div class="question-text">{{ question.content }}
+        </div>
+        <div class="question-details">
+            <span>answers ({{ question.answers|length }})</span>
+            <span class="tags">Tags:</span>
+            {% for tag in question.tags %}
+                <a class="tag" href="{% url 'tag' tag_name=tag %}">{{ tag }}</a>
+            {% endfor %}
+        </div>
+    </div>
+</div>
 
-    <hr style="height:2px; border-width:0; color: black; background-color: black;">
+<hr style="height:2px; border-width:0; color: black; background-color: black;">
 
-    {% for answer in answers %}
-        {% include 'components/answer-item.html' %}
-    {% endfor %}
+{% for answer in pagination_answers %}
+    {% include 'components/answer-item.html' %}
+{% endfor %}
 
-    <hr style="height:2px; border-width:0; color: black; background-color: black;">
+{% include 'components/pagination.html' %}
 
-    <form>
-        <div class="form-error"></div>
-        <label for="id_answer"><h5>Your answer</h5></label>
-        <textarea name="answer" cols="40" rows="10" class="answer-field" placeholder="Enter your answer here"
-                  required=""
-                  id="id_answer"></textarea>
+<hr style="height:2px; border-width:0; color: black; background-color: black;">
 
-        <input class="btn btn-dark" style="margin-bottom: 30px" type="submit" value="Answer!">
-    </form>
+<form>
+    <div class="form-error"></div>
+    <label for="id_answer"><h5>Your answer</h5></label>
+    <textarea name="answer" cols="40" rows="10" class="answer-field" placeholder="Enter your answer here"
+              required=""
+              id="id_answer"></textarea>
+
+    <input class="btn btn-dark" style="margin-bottom: 30px" type="submit" value="Answer!">
+</form>
+
+
 {% endblock %}
