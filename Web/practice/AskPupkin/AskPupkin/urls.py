@@ -27,6 +27,7 @@ urlpatterns = [
     path('login', app.views.login, name='login'),
     path('signup', app.views.signup, name='signup'),
     path('ask', app.views.ask, name='ask'),
+    path('settings', app.views.settings, name='settings'),
 
     path('admin/', admin.site.urls),
 ]

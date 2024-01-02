@@ -1,134 +1,51 @@
-<!doctype html>
-<html lang="en" class="h-100" data-bs-theme="auto">
-<head>
-    <link href="../static/css/bootstrap.css" rel="stylesheet">
-    <link href="../static/css/main.css" rel="stylesheet">
+{% extends 'layouts/base.html' %}
+{% load static %}
 
-    <title>AskPupkin</title>
-</head>
-<body class="d-flex flex-column h-100">
+{% block content %}
+<h2 class="block-title">Settings: Dr. Pepper</h2>
 
-<header>
-    <!-- Fixed navbar -->
-    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-        <div class="container-fluid">
-            <div class="col-2">
-                <a class="navbar-brand footer-title" href="#">AskPupkin</a>
-            </div>
+<form action="/settings" method="post" enctype="multipart/form-data">
+    <input type="hidden" name="" value="">
 
-            <div class="col-7 collapse navbar-collapse" id="navbarCollapse">
-                <form class="d-flex" role="search">
-                    <input style="width:580px" class="form-control me-2" type="search" placeholder="Search"
-                           aria-label="Search">
-                    <button class="btn btn-outline-success" type="submit">Ask!</button>
-                </form>
-            </div>
-
-            <div class="col-3">
-                <div class="row" style="width: auto; margin-left: 30%">
-                    <div class="col-2">
-                        <img src="../static/img/zzzaya.jpg" alt="Logo" width="50" height="44"
-                             class="d-inline-block align-text-top">
-                    </div>
-
-                    <div class="col-8" style="margin-left: 15px">
-                        <a class="username" href="">Dr. Pepper</a>
-                        <div class="row-cols-3">
-                            <a href="" style="color:#fff; margin-right: 8px;">settings</a>
-                            <a href="" style="color:#fff ">log out</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <div class="form-error"></div>
+    <div class="row ask_question">
+        <div class="col-2" style="margin-right: 10px">
+            Login
         </div>
-    </nav>
-</header>
-
-<!-- Begin page content -->
-<main class="flex-shrink-0">
-    <div class="container">
-        <div class="row page-content">
-            <div class="col-8">
-                <h2 class="block-title">Settings: Dr. Pepper</h2>
-
-                <form action="/settings" method="post" enctype="multipart/form-data">
-                    <input type="hidden" name="" value="">
-
-                    <div class="form-error"></div>
-                    <div class="row ask_question">
-                        <div class="col-2" style="margin-right: 10px">
-                            Login
-                        </div>
-                        <input type="text" name="username" value="dr_pepper" class="col-9 log-field" required=""
-                               id="id_username">
-                    </div>
-
-                    <div class="form-error"></div>
-                    <div class="row ask_question">
-                        <div class="col-2" style="margin-right: 10px">
-                            Email
-                        </div>
-                        <input type="email" name="email" value="dr.pepper@mail.ru" class="col-9 log-field"
-                               maxlength="320" required="" id="id_email">
-                    </div>
-
-                    <div class="form-error"></div>
-                    <div class="row ask_question">
-                        <div class="col-2" style="margin-right: 10px">
-                            NickName
-                        </div>
-                        <input type="text" name="first_name" value="Dr. Pepper" class="col-9 log-field" required=""
-                               id="id_first_name">
-                    </div>
-
-                    <div class="form-error"></div>
-                    <div class="row ask_question">
-                        <div class="col-2" style="margin-right: 10px">
-                            Upload avatar
-                        </div>
-                        <input type="file" name="image" class="col-9" accept="image/*" id="id_image">
-                    </div>
-
-                    <span>Your avatar now:</span>
-                    <div class="col-9" style="margin-left: 145px; margin-bottom: 30px">
-                        <img src="../static/img/zzzaya.jpg" alt="Now avatar" width="100px" height="100px">
-                    </div>
-                    <input style="margin-left: 145px; width: 90px" type="submit" value="Save">
-                </form>
-            </div>
-            <div class="col-4">
-                <div class="row info-bar">
-                    <div class="popular-tags">
-                        <h2>Popular tags</h2>
-                        <div class="popular-tags-list">
-                            <span class="badge bg-info text-light">Perl</span>
-                            <span class="badge bg-info text-dark">Python</span>
-                            <span class="badge bg-primary">TechnoPark</span>
-                            <span class="badge bg-light text-dark">MySQL</span>
-                            <span class="badge bg-success">Django</span>
-                            <span class="badge bg-primary text-dark">Mail.Ru</span>
-                            <span class="badge bg-secondary">Voloshin</span>
-                            <span class="badge bg-dark">Firefox</span>
-                        </div>
-                    </div>
-                    <br/>
-                    <div class="best-members">
-                        <h2>Best members</h2>
-                        <ul class="members">
-                            <li class="list-members-item"><a href="">Mr. Freeman</a></li>
-                            <li class="list-members-item"><a href="">Dr. House</a></li>
-                            <li class="list-members-item"><a href="">Bender</a></li>
-                            <li class="list-members-item"><a href="">Queen Victoria</a></li>
-                            <li class="list-members-item"><a href="">V. Pupkin</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <input type="text" name="username" value="dr_pepper" class="col-9 log-field" required=""
+               id="id_username">
     </div>
-</main>
 
-<script src="../static/js/bootstrap.js"></script>
+    <div class="form-error"></div>
+    <div class="row ask_question">
+        <div class="col-2" style="margin-right: 10px">
+            Email
+        </div>
+        <input type="email" name="email" value="dr.pepper@mail.ru" class="col-9 log-field"
+               maxlength="320" required="" id="id_email">
+    </div>
 
-</body>
-</html>
+    <div class="form-error"></div>
+    <div class="row ask_question">
+        <div class="col-2" style="margin-right: 10px">
+            NickName
+        </div>
+        <input type="text" name="first_name" value="Dr. Pepper" class="col-9 log-field" required=""
+               id="id_first_name">
+    </div>
+
+    <div class="form-error"></div>
+    <div class="row ask_question">
+        <div class="col-2" style="margin-right: 10px">
+            Upload avatar
+        </div>
+        <input type="file" name="image" class="col-9" accept="image/*" id="id_image">
+    </div>
+
+    <span>Your avatar now:</span>
+    <div class="col-9" style="margin-left: 145px; margin-bottom: 30px">
+        <img src="../static/img/zzzaya.jpg" alt="Now avatar" width="100px" height="100px">
+    </div>
+    <input style="margin-left: 145px; width: 90px" type="submit" value="Save">
+</form>
+{% endblock %}

@@ -1,123 +1,40 @@
-<!doctype html>
-<html lang="en" class="h-100" data-bs-theme="auto">
-<head>
-    <link href="../static/css/bootstrap.css" rel="stylesheet">
-    <link href="../static/css/main.css" rel="stylesheet">
+{% extends 'layouts/base.html' %}
+{% load static %}
 
-    <title>AskPupkin - Question</title>
-</head>
-<body class="d-flex flex-column h-100">
+{% block content %}
+<h2 class="block-title">New Question</h2>
 
-<header>
-    <!-- Fixed navbar -->
-    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-        <div class="container-fluid">
-            <div class="col-2">
-                <a class="navbar-brand footer-title" href="#">AskPupkin</a>
-            </div>
+<form>
+    <input type="hidden" name="" value="">
 
-            <div class="col-7 collapse navbar-collapse" id="navbarCollapse">
-                <form class="d-flex" role="search">
-                    <input style="width:580px" class="form-control me-2" type="search" placeholder="Search"
-                           aria-label="Search">
-                    <button class="btn btn-outline-success" type="submit">Ask!</button>
-                </form>
-            </div>
-
-            <div class="col-3">
-                <div class="row" style="width: auto; margin-left: 30%">
-                    <div class="col-2">
-                        <img src="../static/img/zzzaya.jpg" alt="Logo" width="50" height="44"
-                             class="d-inline-block align-text-top">
-                    </div>
-
-                    <div class="col-8" style="margin-left: 15px">
-                        <a class="username" href="">Dr. Pepper</a>
-                        <div class="row-cols-3">
-                            <a href="" style="color:#fff; margin-right: 8px;">settings</a>
-                            <a href="" style="color:#fff ">log out</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <div class="form-error"></div>
+    <div class="row ask_question">
+        <div class="col-1" style="margin-right: 10px">
+            <label for="id_title">Title</label>
         </div>
-    </nav>
-</header>
-
-<!-- Begin page content -->
-<main class="flex-shrink-0">
-    <div class="container">
-        <div class="row page-content">
-            <div class="col-8">
-                <h2 class="block-title">New Question</h2>
-
-                <form>
-                    <input type="hidden" name="" value="">
-
-                    <div class="form-error"></div>
-                    <div class="row ask_question">
-                        <div class="col-1" style="margin-right: 10px">
-                            <label for="id_title">Title</label>
-                        </div>
-                        <input type="text" name="title" class="col-9 question-field"
-                               placeholder="Enter the title of your question here." required="" id="id_title">
-                    </div>
-
-                    <div class="form-error"></div>
-                    <div class="row ask_question">
-                        <div class="col-1" style="margin-right: 10px">
-                            <label for="id_content">Content</label>
-                        </div>
-                        <textarea name="content" cols="40" rows="10" class="col-9 question-field"
-                                  placeholder="Enter the content of your question here." required=""
-                                  id="id_content"></textarea>
-                    </div>
-
-                    <div class="form-error"></div>
-                    <div class="row ask_question">
-                        <div class="col-1" style="margin-right: 10px">
-                            <label for="id_tags">Tags</label>
-                        </div>
-                        <input type="text" name="tags" class="col-9 question-field"
-                               placeholder="Enter the tags of your question here." required="" id="id_tags">
-                    </div>
-
-                    <input class="btn btn-outline-dark" style="margin-left: 70px" type="submit" value="ASK!">
-                </form>
-            </div>
-            <div class="col-4">
-                <div class="row info-bar">
-                    <div class="popular-tags">
-                        <h2>Popular tags</h2>
-                        <div class="popular-tags-list">
-                            <span class="badge bg-info text-light">Perl</span>
-                            <span class="badge bg-info text-dark">Python</span>
-                            <span class="badge bg-primary">TechnoPark</span>
-                            <span class="badge bg-light text-dark">MySQL</span>
-                            <span class="badge bg-success">Django</span>
-                            <span class="badge bg-primary text-dark">Mail.Ru</span>
-                            <span class="badge bg-secondary">Voloshin</span>
-                            <span class="badge bg-dark">Firefox</span>
-                        </div>
-                    </div>
-                    <br/>
-                    <div class="best-members">
-                        <h2>Best members</h2>
-                        <ul class="members">
-                            <li class="list-members-item"><a href="">Mr. Freeman</a></li>
-                            <li class="list-members-item"><a href="">Dr. House</a></li>
-                            <li class="list-members-item"><a href="">Bender</a></li>
-                            <li class="list-members-item"><a href="">Queen Victoria</a></li>
-                            <li class="list-members-item"><a href="">V. Pupkin</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <input type="text" name="title" class="col-9 question-field"
+               placeholder="Enter the title of your question here." required="" id="id_title">
     </div>
-</main>
 
-<script src="../static/js/bootstrap.js"></script>
+    <div class="form-error"></div>
+    <div class="row ask_question">
+        <div class="col-1" style="margin-right: 10px">
+            <label for="id_content">Content</label>
+        </div>
+        <textarea name="content" cols="40" rows="10" class="col-9 question-field"
+                  placeholder="Enter the content of your question here." required=""
+                  id="id_content"></textarea>
+    </div>
 
-</body>
-</html>
+    <div class="form-error"></div>
+    <div class="row ask_question">
+        <div class="col-1" style="margin-right: 10px">
+            <label for="id_tags">Tags</label>
+        </div>
+        <input type="text" name="tags" class="col-9 question-field"
+               placeholder="Enter the tags of your question here." required="" id="id_tags">
+    </div>
+
+    <input class="btn btn-outline-dark" style="margin-left: 70px" type="submit" value="ASK!">
+</form>
+{% endblock %}
