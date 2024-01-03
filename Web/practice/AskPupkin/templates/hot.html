@@ -16,6 +16,6 @@
         {% include 'components/question-item.html' %}
     {% endfor %}
 
-    {% include 'components/pagination.html' %}
+    {% include 'components/pagination.html' with items=questions %}
 
 {% endblock %}

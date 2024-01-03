@@ -210,6 +210,12 @@ main > .container {
     width: 300px;
 }
 
+/* Стиль активного класса и кнопки при наведении курсора мыши */
+a.active_custom, .page-link:hover {
+  background-color: #666;
+  color: white;
+}
+
 
 .bi {
     vertical-align: -.125em;

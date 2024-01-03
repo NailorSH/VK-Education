@@ -1,3 +1,5 @@
+import math
+
 from django.shortcuts import render
 from django.core.paginator import Paginator
 
@@ -22,10 +24,43 @@ QUESTIONS = [
 
 
 def paginate(request, objects, per_page=15):
-    page = request.GET.get('page', 1)
-    paginator = Paginator(objects, per_page)
+    result = None
+    first = end = 1
+    num_page = 1
+    pages_pagination = []
+    try:
+        page = request.GET.get('page', 1)
 
-    return paginator.page(page)
+        paginator = Paginator(objects, per_page)
+        result = paginator.page(page)
+
+        num_page = int(page)
+    except Exception as e:
+        print(e)
+
+    all_pages = math.ceil(len(objects) / per_page)
+
+    i = num_page
+    count = 0
+    if i < all_pages:
+        while count < 3:
+            pages_pagination.append(i)
+            i += 1
+            if i == all_pages:
+                break
+            count += 1
+
+    if num_page == 1:
+        first = None
+    if num_page == all_pages:
+        end = None
+
+    return (result, {
+        "first": first,
+        "end": end,
+        "enditem": all_pages,
+        "items": pages_pagination
+    })
 
 
 def find_questions_by_tag(tag_name):
@@ -33,27 +68,47 @@ def find_questions_by_tag(tag_name):
 
 
 def index(request):
-    page_items = paginate(request, QUESTIONS, 10)
+    page_items, pagination = paginate(request, QUESTIONS, 5)
 
-    return render(request, 'index.html', {'questions': page_items})
+    return render(
+        request,
+        'index.html',
+        {
+            'questions': page_items,
+            'pages': pagination
+        }
+    )
 
 
 def hot(request):
-    page_items = paginate(request, QUESTIONS, 10)
+    page_items, pagination = paginate(request, QUESTIONS, 10)
 
-    return render(request, 'hot.html', {'questions': page_items})
+    return render(request, 'hot.html', {
+        'questions': page_items,
+        'pages': pagination
+    })
 
 
 def tag(request, tag_name):
-    page_items = paginate(request, find_questions_by_tag(tag_name), 10)
+    page_items, pagination = paginate(request, find_questions_by_tag(tag_name), 10)
 
-    return render(request, 'tag_listing.html', {'tag': tag_name, 'questions': page_items})
+    return render(request, 'tag_listing.html', {
+        'tag': tag_name,
+        'questions': page_items,
+        'pages': pagination
+    })
 
 
 def question(request, question_id):
     item = QUESTIONS[question_id]
-    pagination_answers = paginate(request, item['answers'], 10)
-    return render(request, 'question.html', {'question': item, 'pagination_answers': pagination_answers})
+    answers, pagination = paginate(request, item['answers'], 10)
+
+    return render(request, 'question.html', {
+        'question': item,
+        'pagination_answers': answers,
+        'pages': pagination
+
+    })
 
 
 def login(request):
