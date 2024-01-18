@@ -1,7 +1,9 @@
 import math
 
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.core.paginator import Paginator
+
+from app.models import *
 
 QUESTIONS = [
     {
@@ -68,7 +70,8 @@ def find_questions_by_tag(tag_name):
 
 
 def index(request):
-    page_items, pagination = paginate(request, QUESTIONS, 5)
+    questions = Question.objects.new()
+    page_items, pagination = paginate(request, questions, 10)
 
     return render(
         request,
@@ -81,7 +84,8 @@ def index(request):
 
 
 def hot(request):
-    page_items, pagination = paginate(request, QUESTIONS, 10)
+    hot_questions = Question.objects.hot()
+    page_items, pagination = paginate(request, hot_questions, 10)
 
     return render(request, 'hot.html', {
         'questions': page_items,
@@ -90,7 +94,8 @@ def hot(request):
 
 
 def tag(request, tag_name):
-    page_items, pagination = paginate(request, find_questions_by_tag(tag_name), 10)
+    tag_questions = Tag.objects.get(tag_name=tag_name).questions.all()
+    page_items, pagination = paginate(request, tag_questions, 10)
 
     return render(request, 'tag_listing.html', {
         'tag': tag_name,
@@ -100,8 +105,9 @@ def tag(request, tag_name):
 
 
 def question(request, question_id):
-    item = QUESTIONS[question_id]
-    answers, pagination = paginate(request, item['answers'], 10)
+    item = get_object_or_404(Question, id=question_id)
+
+    answers, pagination = paginate(request, item.answers, 10)
 
     return render(request, 'question.html', {
         'question': item,

@@ -64,6 +64,14 @@ class Question(models.Model):
     def total_likes(self):
         return self.likes.count()
 
+    @property
+    def answers(self):
+        return self.answer_set.all()
+
+    @property
+    def answers_count(self):
+        return self.answer_set.count()
+
 
 class Answer(models.Model):
     author = models.ForeignKey(Profile, on_delete=models.PROTECT)
@@ -72,6 +80,10 @@ class Answer(models.Model):
 
     text = models.CharField(max_length=3000, null=False, blank=False)
     accepted = models.BooleanField(default=False)
+
+    @property
+    def total_likes(self):
+        return self.likes.count()
 
     def __str__(self):
         return f"{self.author.user.first_name} answer"
