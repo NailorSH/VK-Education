@@ -2,11 +2,12 @@ from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelatio
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
 from django.contrib.auth.models import User
+from django.db.models import Count
 
 
 class QuestionManager(models.Manager):
     def hot(self):
-        return self.order_by("-likes")
+        return self.annotate(num_likes=Count('likes')).order_by('-num_likes', '-created')
 
     def new(self):
         return self.order_by("-created")
