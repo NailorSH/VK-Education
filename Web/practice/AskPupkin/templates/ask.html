@@ -3,37 +3,31 @@
 
 {% block content %}
 <h2 class="block-title">New Question</h2>
+{% if form.non_field_errors %}
+    <div class="error-message">
+        {% for error in form.non_field_errors %}
+            <span>{{ error }}</span>
+        {% endfor %}
+    </div>
+{% endif %}
 
-<form>
-    <input type="hidden" name="" value="">
-
-    <div class="form-error"></div>
+<form action="{% url 'ask' %}" method="post">
+    {% csrf_token %}
+    {% for field in form %}
+    {% if field.errors %}
+        <div class="error-message">
+            {% for error in field.errors %}
+                <span>{{ error }}</span>
+            {% endfor %}
+        </div>
+    {% endif %}
     <div class="row ask_question">
         <div class="col-1" style="margin-right: 10px">
-            <label for="id_title">Title</label>
+            <label for="{{ field.id_for_label }}">{{ field.label }}</label>
         </div>
-        <input type="text" name="title" class="col-9 question-field"
-               placeholder="Enter the title of your question here." required="" id="id_title">
+        {{ field }}
     </div>
-
-    <div class="form-error"></div>
-    <div class="row ask_question">
-        <div class="col-1" style="margin-right: 10px">
-            <label for="id_content">Content</label>
-        </div>
-        <textarea name="content" cols="40" rows="10" class="col-9 question-field"
-                  placeholder="Enter the content of your question here." required=""
-                  id="id_content"></textarea>
-    </div>
-
-    <div class="form-error"></div>
-    <div class="row ask_question">
-        <div class="col-1" style="margin-right: 10px">
-            <label for="id_tags">Tags</label>
-        </div>
-        <input type="text" name="tags" class="col-9 question-field"
-               placeholder="Enter the tags of your question here." required="" id="id_tags">
-    </div>
+    {% endfor %}
 
     <input class="btn btn-outline-dark" style="margin-left: 70px" type="submit" value="ASK!">
 </form>

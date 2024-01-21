@@ -4,70 +4,33 @@
 {% block content %}
 
 <h2 class="block-title">Registration</h2>
-
-<form action="/signup" method="post" enctype="multipart/form-data">
-    <input type="hidden" name="" value="">
-
-    <div class="form-error"></div>
-
-    <div class="row ask_question">
-        <div class="col-3" style="margin-right: 10px">
-            Login
-        </div>
-        <input type="text" name="username" class="col-9 log-field" required="" id="id_username">
+{% if form.non_field_errors %}
+    <div class="error-message">
+        {% for error in form.non_field_errors %}
+            <span>{{ error }}</span>
+        {% endfor %}
     </div>
+{% endif %}
 
-
-    <div class="form-error"></div>
-
-    <div class="row ask_question">
-        <div class="col-3" style="margin-right: 10px">
-            NickName
+<form action="{% url 'signup' %}" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {% for field in form %}
+        {% if field.errors %}
+            <div class="error-message">
+                {% for error in field.errors %}
+                    <span>{{ error }}</span>
+                {% endfor %}
+            </div>
+        {% endif %}
+        <div class="row ask_question">
+            <div class="col-2" style="margin-right: 10px">
+                <label class="form-label">{{ field.label }}</label>
+            </div>
+            {{ field }}
         </div>
-        <input type="text" name="first_name" class="col-9 log-field" required="" id="id_first_name">
-    </div>
+    {% endfor %}
 
-
-    <div class="form-error"></div>
-
-    <div class="row ask_question">
-        <div class="col-3" style="margin-right: 10px">
-            Email
-        </div>
-        <input type="email" name="email" class="col-9 log-field" maxlength="320" required="" id="id_email">
-    </div>
-
-
-    <div class="form-error"></div>
-
-    <div class="row ask_question">
-        <div class="col-3" style="margin-right: 10px">
-            Password
-        </div>
-        <input type="password" name="password" class="col-9 log-field" required="" id="id_password">
-    </div>
-
-
-    <div class="form-error"></div>
-
-    <div class="row ask_question">
-        <div class="col-3" style="margin-right: 10px">
-            Repeat password
-        </div>
-        <input type="password" name="password2" class="col-9 log-field" required="" id="id_password2">
-    </div>
-
-
-    <div class="form-error"></div>
-
-    <div class="row ask_question">
-        <div class="col-3" style="margin-right: 10px">
-            Upload avatar
-        </div>
-        <input type="file" name="image" class="col-8" accept="image/*" id="id_image">
-    </div>
-
-    <input style="margin-left: 230px; width: 90px" type="submit" value="Register">
+    <input style="margin-left: 150px; width: 90px" type="submit" value="Register">
 
 </form>
 

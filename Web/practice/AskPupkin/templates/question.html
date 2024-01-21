@@ -45,13 +45,25 @@
 
 <hr style="height:2px; border-width:0; color: black; background-color: black;">
 
-<form>
-    <div class="form-error"></div>
-    <label for="id_answer"><h5>Your answer</h5></label>
-    <textarea name="answer" cols="40" rows="10" class="answer-field" placeholder="Enter your answer here"
-              required=""
-              id="id_answer"></textarea>
-
+{% if form.non_field_errors %}
+    <div class="error-message">
+        {% for error in form.non_field_errors %}
+            <span>{{ error }}</span>
+        {% endfor %}
+    </div>
+{% endif %}
+<form action="{% url 'question' question_id=question.id %}" method="post">
+    {% csrf_token %}
+        {% if field.errors %}
+            <div class="error-message">
+                {% for error in field.errors %}
+                    <span>{{ error }}</span>
+                {% endfor %}
+            </div>
+        {% endif %}
+        <div class="row ask_question">
+        {{ form.answer}}
+        </div>
     <input class="btn btn-dark" style="margin-bottom: 30px" type="submit" value="Answer!">
 </form>
 

@@ -17,6 +17,12 @@ main > .container {
     color:#ffffff
 }
 
+.error-message {
+    margin-bottom: 5px;
+    color: darkred;
+    font-weight: bold;
+}
+
 .questions-item {
     border: 1px solid grey;
     border-radius: 10px;
@@ -208,6 +214,10 @@ main > .container {
 .log-field {
     border: 2px solid black;
     width: 300px;
+}
+
+.choose_file {
+    width: 250px;
 }
 
 /* Стиль активного класса и кнопки при наведении курсора мыши */

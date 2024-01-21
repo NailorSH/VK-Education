@@ -3,25 +3,32 @@
 
 {% block content %}
 <h2 class="block-title">Log In</h2>
-
-<form action="/login" method="post">
-    <input type="hidden" name="" value="">
-
-    <div class="form-error"></div>
-    <div class="row ask_question">
-        <div class="col-2" style="margin-right: 10px">
-            Login
-        </div>
-        <input type="text" name="username" class="col-9 log-field" required="" id="id_username">
+{% if form.non_field_errors %}
+    <div class="error-message">
+        {% for error in form.non_field_errors %}
+            <span>{{ error }}</span>
+        {% endfor %}
     </div>
+{% endif %}
 
-    <div class="form-error"></div>
-    <div class="row ask_question">
-        <div class="col-2" style="margin-right: 10px">
-            Password
+<form action="{% url 'login' %}" method="post">
+    {% csrf_token %}
+    {% for field in form %}
+        {% if field.errors %}
+            <div class="error-message">
+                {% for error in field.errors %}
+                    <span>{{ error }}</span>
+                {% endfor %}
+            </div>
+        {% endif %}
+        <div class="row ask_question">
+            <div class="col-2" style="margin-right: 10px">
+                <label class="form-label">{{ field.label }}</label>
+            </div>
+            {{ field }}
         </div>
-        <input type="password" name="password" class="col-9 log-field" required="" id="id_password">
-    </div>
+    {% endfor %}
+
 
     <input style="margin-left: 145px; width: 90px" type="submit" value="Log in!">
 </form>
